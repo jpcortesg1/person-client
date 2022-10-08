@@ -1,24 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/home/Home";
+import Register from "./pages/register/Register";
+import Login from "./pages/login/Login";
+import "./app.css";
+import { useSelector } from "react-redux";
+import { RootState } from "./app/store";
+import CreatePerson from "./pages/createPerson/CreatePerson";
+import Auth from "./service/Auth";
+import Person from "./pages/person/Person";
 
 function App() {
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Auth />
+        <Routes>
+          <Route
+            path="/"
+            element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
+          ></Route>
+          <Route
+            path="/create-person"
+            element={
+              isAuthenticated ? <CreatePerson /> : <Navigate to="/login" />
+            }
+          ></Route>
+          <Route
+            path="/person/:id"
+            element={isAuthenticated ? <Person /> : <Navigate to="/login" />}
+          ></Route>
+
+          <Route
+            path="/register"
+            element={!isAuthenticated ? <Register /> : <Navigate to="/" />}
+          ></Route>
+          <Route
+            path="/login"
+            element={!isAuthenticated ? <Login /> : <Navigate to="/" />}
+          ></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
