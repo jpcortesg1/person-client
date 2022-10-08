@@ -46,7 +46,7 @@ export default function CreatePerson() {
     try {
       const access = localStorage.getItem("access");
       const res = await axios.post(
-        "http://127.0.0.1:8000/api/person/",
+        "https://django-person-crud.onrender.com/api/person/",
         {
           ...form,
         },

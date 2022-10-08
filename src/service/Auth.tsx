@@ -19,7 +19,7 @@ export default function Auth() {
           const isExpired = decoded?.exp < Date.now() / 1000;
           if (isExpired) dispatch(logOut());
           const { data } = await axios.post(
-            "http://127.0.0.1:8000/api/token/refresh/",
+            "https://django-person-crud.onrender.com/api/token/refresh/",
             {
               refresh,
             }

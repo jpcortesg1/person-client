@@ -54,7 +54,7 @@ export default function PersonPag() {
     try {
       const access = localStorage.getItem("access");
       const res = await axios.patch(
-        `http://127.0.0.1:8000/api/person/${id}/`,
+        `https://django-person-crud.onrender.com/api/person/${id}/`,
         {
           ...form,
         },

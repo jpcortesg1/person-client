@@ -24,11 +24,14 @@ export default function BasicCard({ person }: BasicCardProps) {
   const handleDelete = async () => {
     try {
       const access = localStorage.getItem("access");
-      await axios.delete(`http://127.0.0.1:8000/api/person/${person.id}/`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
+      await axios.delete(
+        `https://django-person-crud.onrender.com/api/person/${person.id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        }
+      );
       dispatch(removePerson(person.id));
     } catch (error) {
       console.log(error);

@@ -17,7 +17,9 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/person/");
+        const response = await axios.get(
+          "https://django-person-crud.onrender.com/api/person/"
+        );
         const data: Person[] = response.data;
         dispatch(fillPersons(data));
       } catch (error) {}
